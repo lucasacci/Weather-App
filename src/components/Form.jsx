@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { Card } from './Card';
+import { Spinner } from './Spinner';
 
 export const Form = () => {
 
     const [input, setInput] = useState("miami");
+    const [weather, setWeather] = useState([])
     const [spinner, setSpinner] = useState(true);
 
     const apiKey = 'ee004fac650c15297103962e7bac44bd';
@@ -22,7 +25,7 @@ export const Form = () => {
       e.preventDefault();
       const keyword = e.currentTarget.city.value.trim();
       setInput(keyword);
-      console.log(input);
+
   }
 
     const apiCall = async () =>{
@@ -48,7 +51,9 @@ export const Form = () => {
         )
 
         const weather = await respuesta1.json();
-          console.log(weather.weather)
+
+        setWeather(weather);
+        setSpinner(false);
 
       }catch(error){
         console.log(error)
@@ -56,20 +61,28 @@ export const Form = () => {
     }
 
 
-    
+     const conditionalComp = (spinner) ? ( <Spinner/> ) : ( <Card weather={weather}/>)
 
     
     
 
   return (
-    <div className='my-5 d-flex justify-content-center p-3 bg-dark  divBorder'>     
-        <form onSubmit={handleSubmit}>
-            <div className='row'>
-                <label className='form-label text-light text-center my-4'>Ingrese la ubicacion:</label>
-                <input className="form-control mb-4" placeholder='Miami' name='city'/>
-                <button className='btn btn-primary mb-4' type='submit'>Buscar</button>
-            </div>
-        </form>
-    </div>
+    <>
+      <div className='my-5 d-flex justify-content-center p-3 bg-dark  divBorder'>     
+          <form onSubmit={handleSubmit}>
+              <div className='row'>
+                  <label className='form-label text-light text-center my-4'>Ingrese la ubicacion:</label>
+                  <input className="form-control mb-4" placeholder='Miami' name='city'/>
+                  <button className='btn btn-primary mb-4' type='submit'>Buscar</button>
+              </div>
+          </form>
+          <hr />
+      </div>
+      <div className='p-3 bg-dark divBorder'>
+         {
+          conditionalComp
+         }
+      </div>
+    </>
   )
 }
