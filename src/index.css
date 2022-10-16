@@ -1,0 +1,13 @@
+#root{
+  min-height: 100vh;
+}
+
+body{
+  background: rgb(159,56,242);
+background: linear-gradient(180deg, rgba(159,56,242,1) 0%, rgba(43,30,157,1) 100%);
+}
+
+.divBorder{
+  border-radius: 30px;
+  background-color: gray;
+}
