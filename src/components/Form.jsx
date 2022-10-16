@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Card } from './Card';
 import { Spinner } from './Spinner';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 export const Form = () => {
 
@@ -57,6 +61,11 @@ export const Form = () => {
 
       }catch(error){
         console.log(error)
+        MySwal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ingrese una ciudad valida!',
+        })
       }
     }
 
